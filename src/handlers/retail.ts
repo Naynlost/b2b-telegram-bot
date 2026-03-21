@@ -10,7 +10,7 @@ export function setupRetailHandlers(bot: Telegraf) {
         [Markup.button.callback("📍 Де ми знаходимось?", "retail_location")],
         [Markup.button.callback("🍞 Асортимент та ціни", "retail_menu")],
         [Markup.button.callback("🛍 Зробити попереднє замовлення", "retail_preorder")],
-        [Markup.button.callback("🗣 Залишити відгук", "retail_feedback")],
+        [Markup.button.callback("🗣 Залишити відгук або пропозицію", "retail_feedback")],
         [Markup.button.callback("🔙 Головне меню", "back_to_main")]
       ])
     });

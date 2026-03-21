@@ -5,6 +5,7 @@ import { wholesaleCarts } from '../store/cartStore';
 import { renderWholesaleCart } from '../views/wholesaleView';
 import { processWholesaleOrder } from '../services/wholesaleService';
 
+
 export function setupMessageHandlers(bot: Telegraf) {
   bot.on(message('text'), async (ctx, next) => {
     if (ctx.message.reply_to_message && 'text' in ctx.message.reply_to_message) {
@@ -71,13 +72,18 @@ export function setupMessageHandlers(bot: Telegraf) {
       const telegramId = ctx.from.id.toString();
       const store = await prisma.store.findUnique({ where: { telegramId } });
       (ctx as any).session = null;
-      await ctx.reply("✅ Ваше повідомлення передано оператору. Очікуйте на відповідь.");
+      await ctx.reply(
+        "✅ Ваше повідомлення передано оператору. Очікуйте на відповідь.",
+        Markup.keyboard([
+          ["🔙 Головне меню"] 
+        ]).resize()
+      );
       const admins = await prisma.admin.findMany();
       for (const admin of admins) {
         await bot.telegram.sendMessage(admin.telegramId, `🆘 <b>Повідомлення оператору (Опт):</b>\n🏪 Клієнт: ${store?.name || ctx.from.first_name}\n📱 Телефон: ${store?.phone || "Немає"}\n🆔 ${telegramId}\n\n💬 <i>${ctx.message.text}</i>`, { parse_mode: "HTML" }).catch(() => {});
       }
       return;
-    }
+}
 
     if (session.waitingForStoreName) {
       (ctx as any).session = { waitingForStoreAddress: true, tempStoreName: ctx.message.text };
