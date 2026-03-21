@@ -74,9 +74,9 @@ export function setupMessageHandlers(bot: Telegraf) {
       (ctx as any).session = null;
       await ctx.reply(
         "✅ Ваше повідомлення передано оператору. Очікуйте на відповідь.",
-        Markup.keyboard([
-          ["🔙 Головне меню"] 
-        ]).resize()
+        Markup.inlineKeyboard([
+          [Markup.button.callback("🔙 Головне меню", "back_to_main")]
+        ])
       );
       const admins = await prisma.admin.findMany();
       for (const admin of admins) {

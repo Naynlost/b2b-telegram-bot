@@ -40,23 +40,37 @@ export function setupRetailHandlers(bot: Telegraf) {
 
   // --- FİYAT LİSTESİ ---
   bot.action("retail_menu", async (ctx) => {
-    await ctx.answerCbQuery();
-    
-    await ctx.deleteMessage().catch(() => {});
+  await ctx.answerCbQuery();
+  await ctx.deleteMessage().catch(() => {});
 
-    const photoUrl = "https://i.imgur.com/SENIN_FOTOGRAFIN.jpg";
+  const photoUrls = [
+    "https://postimg.cc/Yv2jbp1t",
+    "https://postimg.cc/LJy5WrTp",
+    "https://postimg.cc/jD821GXR",
+    "https://postimg.cc/75BhRpV4",
+    "https://postimg.cc/ZWfnQ1cZ",
+    "https://postimg.cc/yDfxGwPV",
+    "https://postimg.cc/YvX0PJ3r"
+  ];
+  const mediaGroup = photoUrls.map((url, index) => ({
+    type: 'photo',
+    media: { url },
+    ...(index === 0 ? { caption: "🍞 <b>Наш асортимент та ціни</b>\n", parse_mode: "HTML" } : {})
+  }));
 
-    await ctx.replyWithPhoto(
-      { url: photoUrl },
-      {
-        caption: "🍞 <b>Наш асортимент та ціни</b>\n",
-        parse_mode: "HTML",
-        ...Markup.inlineKeyboard([
-          [Markup.button.callback("🔙 Назад до меню", "flow_retail")]
-        ])
-      }
+  try {
+    await ctx.replyWithMediaGroup(mediaGroup as any);
+    await ctx.reply(
+      "Оберіть дію:", 
+      Markup.inlineKeyboard([
+        [Markup.button.callback("🔙 Назад до меню", "flow_retail")]
+      ])
     );
-  });
+  } catch (error) {
+    console.error("Hata: Resim albümü gönderilemedi.", error);
+    await ctx.reply("❌ Не вдалося завантажити асортимент та ціни. Будь ласка, спробуйте пізніше.");
+  }
+});
 
   bot.action("retail_preorder", async (ctx) => {
     await ctx.answerCbQuery();
