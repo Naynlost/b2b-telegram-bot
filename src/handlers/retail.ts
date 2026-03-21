@@ -44,13 +44,13 @@ export function setupRetailHandlers(bot: Telegraf) {
   await ctx.deleteMessage().catch(() => {});
 
   const photoUrls = [
-    "https://i.postimg.cc/BnHDZbbP/1.png",
-    "https://i.postimg.cc/43GcYGHm/2.png",
-    "https://i.postimg.cc/8CGv7Gff/3.png",
-    "https://i.postimg.cc/HLmMrm8r/4.png",
-    "https://i.postimg.cc/43GcYGHK/5.png",
-    "https://i.postimg.cc/5tJzXJQF/6.png",
-    "https://i.postimg.cc/ZqmNWmvd/7.png"
+    "https://i.postimg.cc/VNyj8MFJ/1.png",
+    "https://i.postimg.cc/YS1Qq9XC/2.png",
+    "https://i.postimg.cc/FKj0sRPz/3.png",
+    "https://i.postimg.cc/Zqr6KRfq/4.png",
+    "https://i.postimg.cc/yNF0Ydfd/5.png",
+    "https://i.postimg.cc/mrQ72DdF/6.png",
+    "https://i.postimg.cc/xdKLTCsm/7.png"
   ];
   const mediaGroup = photoUrls.map((url, index) => ({
     type: 'photo',

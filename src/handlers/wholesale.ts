@@ -191,8 +191,42 @@ export function setupWholesaleHandlers(bot: Telegraf) {
   });
 
   bot.action("wholesale_prices", async (ctx) => {
-    await ctx.answerCbQuery();
-    await renderWholesalePrices(ctx);
+    await ctx.answerCbQuery().catch(() => {});
+    await ctx.deleteMessage().catch(() => {});
+    const photoUrls = [
+      "https://i.postimg.cc/BnHDZbbP/1.png",
+      "https://i.postimg.cc/43GcYGHm/2.png",
+      "https://i.postimg.cc/8CGv7Gff/3.png",
+      "https://i.postimg.cc/HLmMrm8r/4.png",
+      "https://i.postimg.cc/43GcYGHK/5.png",
+      "https://i.postimg.cc/5tJzXJQF/6.png",
+      "https://i.postimg.cc/ZqmNWmvd/7.png"
+    ];
+
+    const mediaGroup = photoUrls.map((url, index) => {
+      if (index === 0) {
+        return { 
+          type: 'photo', 
+          media: url, 
+          caption: "📋 <b>Оптовий прайс-лист</b>\n", 
+          parse_mode: "HTML" 
+        };
+      }
+      return { type: 'photo', media: url };
+    });
+
+    try {
+      await ctx.replyWithMediaGroup(mediaGroup as any);
+      await ctx.reply("Оберіть дію:", Markup.inlineKeyboard([
+          [Markup.button.callback("🔙 Назад", "back_to_wholesale_menu")]
+      ]));
+
+    } catch (error) {
+      console.error("TELEGRAM API HATASI (Оптовий прайс):", error);
+      await ctx.reply("❌ Не вдалося завантажити прайс-лист. Будь ласка, спробуйте пізніше.", Markup.inlineKeyboard([
+          [Markup.button.callback("🔙 Назад", "back_to_wholesale_menu")]
+      ]));
+    }
   });
 
   bot.action(/wp_cat_(\d+)/, async (ctx) => {
