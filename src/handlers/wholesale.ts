@@ -205,6 +205,7 @@ export function setupWholesaleHandlers(bot: Telegraf) {
       "https://i.postimg.cc/Qt6GnXhM/8.png",
       "https://i.postimg.cc/sxvFktgD/9.png",
       "https://i.postimg.cc/fyJ4G6RJ/10.png",
+      "https://i.postimg.cc/L5ndcr85/11.png"
     ];
 
     const firstBatch = photoUrls.slice(0, 10).map((url, index) => {
