@@ -20,6 +20,6 @@ An advanced, fully autonomous Telegram bot built with TypeScript and Node.js to 
 * **Deployment & Process Management:** Ubuntu VPS, PM2
 
 Telegram: @DOSTAVKA_hliby_bot
-
+https://t.me/DOSTAVKA_hliby_bot
 
 
