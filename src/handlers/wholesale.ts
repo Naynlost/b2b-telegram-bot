@@ -194,13 +194,17 @@ export function setupWholesaleHandlers(bot: Telegraf) {
     await ctx.answerCbQuery().catch(() => {});
     await ctx.deleteMessage().catch(() => {});
     const photoUrls = [
-      "https://i.postimg.cc/BnHDZbbP/1.png",
-      "https://i.postimg.cc/43GcYGHm/2.png",
-      "https://i.postimg.cc/8CGv7Gff/3.png",
-      "https://i.postimg.cc/HLmMrm8r/4.png",
-      "https://i.postimg.cc/43GcYGHK/5.png",
-      "https://i.postimg.cc/5tJzXJQF/6.png",
-      "https://i.postimg.cc/ZqmNWmvd/7.png"
+      "https://i.postimg.cc/KYDyBPWT/1.png",
+      "https://i.postimg.cc/mDdf6bRV/2.png",
+      "https://i.postimg.cc/k4j3hn9j/3.png",
+      "https://i.postimg.cc/NMNqPgYz/4.png",
+      "https://i.postimg.cc/ydf4rVBr/5.png",
+      "https://i.postimg.cc/76B8Qxwq/6.png",
+      "https://i.postimg.cc/rmhXY8MF/7.png",
+      "https://i.postimg.cc/Qt6GnXhM/8.png",
+      "https://i.postimg.cc/sxvFktgD/9.png",
+      "https://i.postimg.cc/fyJ4G6RJ/10.png",
+      "https://i.postimg.cc/L5ndcr85/11.png"
     ];
 
     const mediaGroup = photoUrls.map((url, index) => {
