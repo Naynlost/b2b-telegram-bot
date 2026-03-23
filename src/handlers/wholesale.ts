@@ -193,6 +193,7 @@ export function setupWholesaleHandlers(bot: Telegraf) {
   bot.action("wholesale_prices", async (ctx) => {
     await ctx.answerCbQuery().catch(() => {});
     await ctx.deleteMessage().catch(() => {});
+
     const photoUrls = [
       "https://i.postimg.cc/KYDyBPWT/1.png",
       "https://i.postimg.cc/mDdf6bRV/2.png",
@@ -207,20 +208,28 @@ export function setupWholesaleHandlers(bot: Telegraf) {
       "https://i.postimg.cc/L5ndcr85/11.png"
     ];
 
-    const mediaGroup = photoUrls.map((url, index) => {
+    const firstBatch = photoUrls.slice(0, 10).map((url, index) => {
       if (index === 0) {
         return { 
           type: 'photo', 
           media: url, 
-          caption: "📋 <b>Оптовий прайс-лист</b>\n", 
+          caption: "📋 <b>Оптовий прайс-лист</b>\n",
           parse_mode: "HTML" 
         };
       }
       return { type: 'photo', media: url };
     });
 
+    const remainingUrls = photoUrls.slice(10);
+
     try {
-      await ctx.replyWithMediaGroup(mediaGroup as any);
+      await ctx.replyWithMediaGroup(firstBatch as any);
+      if (remainingUrls.length === 1) {
+        await ctx.replyWithPhoto(remainingUrls[0]);
+      } else if (remainingUrls.length > 1) {
+        const secondBatch = remainingUrls.map(url => ({ type: 'photo', media: url }));
+        await ctx.replyWithMediaGroup(secondBatch as any);
+      }
       await ctx.reply("Оберіть дію:", Markup.inlineKeyboard([
           [Markup.button.callback("🔙 Назад", "back_to_wholesale_menu")]
       ]));
